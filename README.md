@@ -1,73 +1,31 @@
-# AI Football Card Generator MVP
+# AI Football Card Generator — Netlify Fixed Root Version
 
-Aceasta este o soluție simplă pentru generarea cardurilor în template-ul stabilit:
+Aceasta este versiunea corectată ca să evite 404 pe Netlify.
 
-1. **Auto generate** — userul scrie numele jucătorului și echipa.
-2. **Upload photo** — userul încarcă o poză și completează datele cardului.
+## Ce s-a schimbat
 
-Aplicația are frontend + backend Node/Express. Backend-ul pregătește promptul și poate apela OpenAI Images API dacă este configurat `OPENAI_API_KEY`.
+- `index.html`, `styles.css`, `app.js` sunt direct în root.
+- `netlify.toml` are `publish = "."`.
+- Redirect-ul `/* -> /index.html` este inclus.
+- Netlify Functions rămân în `netlify/functions`.
 
-## Cum rulezi local
+## Deploy recomandat
 
-```bash
-npm install
-cp .env.example .env
-npm start
-```
+1. Dezarhivează proiectul.
+2. Pune conținutul folderului pe GitHub.
+3. În Netlify: Add new site -> Import an existing project.
+4. Build command: `npm run build`
+5. Publish directory: `.`
+6. Functions directory: `netlify/functions`
+7. Environment Variables:
+   - `OPENAI_API_KEY`
+   - opțional `OPENAI_IMAGE_MODEL=gpt-image-1`
+8. Deploy.
 
-Apoi deschizi:
+## Verificare rapidă
 
-```text
-http://localhost:3000
-```
+După deploy, deschide URL-ul principal al site-ului, de forma:
 
-## Mod mock
+`https://numele-siteului.netlify.app/`
 
-Dacă nu setezi `OPENAI_API_KEY`, aplicația rulează în mod mock:
-- nu generează imagine AI;
-- îți arată promptul complet care ar fi trimis la API.
-
-## Configurare AI
-
-În `.env`:
-
-```env
-OPENAI_API_KEY=your_api_key_here
-OPENAI_IMAGE_MODEL=gpt-image-1
-PORT=3000
-```
-
-## Endpoint-uri
-
-### Build prompt
-
-```http
-POST /api/build-prompt
-```
-
-### Generate card from text
-
-```http
-POST /api/generate-card
-```
-
-### Generate card from uploaded photo
-
-```http
-POST /api/generate-card-with-photo
-```
-
-## Direcția vizuală
-
-Promptul păstrează regulile stabilite:
-
-- card vertical;
-- rating + poziție sus stânga;
-- portret pixel-art frontal;
-- nume mare;
-- steag pixelat;
-- emblemă pixelată;
-- statistici jos;
-- fundal colorat după culorile echipei;
-- fără fundal albastru default dacă echipa nu are albastru;
-- fără negru ca temă principală dacă echipa nu are negru.
+Nu deschide linkuri interne de deploy sau path-uri inexistente.

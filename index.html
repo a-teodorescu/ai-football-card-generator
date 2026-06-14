@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Football Card Generator</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">⚽</div>
+      <div>
+        <h1>AI Football <span>Card Generator</span></h1>
+        <p>Netlify Functions · Template pixel-art stabilit</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="tabs">
+        <button class="tab active" data-mode="auto">Auto generate</button>
+        <button class="tab" data-mode="photo">Upload photo</button>
+      </div>
+
+      <form id="cardForm">
+        <div class="section-title">Date principale</div>
+
+        <div class="grid">
+          <label>Nume jucător <input id="playerName" value="Olimpiu Moruțan" /></label>
+          <label>Echipă <input id="clubName" value="FC Rapid București" /></label>
+          <label>Naționalitate <input id="nationality" value="România" /></label>
+          <label>Poziție
+            <select id="position">
+              <option>ST</option><option>CF</option><option>LW</option><option selected>RW</option>
+              <option>CAM</option><option>CM</option><option>CDM</option><option>CB</option>
+              <option>LB</option><option>RB</option><option>GK</option>
+            </select>
+          </label>
+          <label>Rating <input id="rating" type="number" value="82" min="1" max="99" /></label>
+          <label>Culori club <input id="clubColors" value="vișiniu și alb, inspirat din FC Rapid București" /></label>
+        </div>
+
+        <div class="section-title">Statistici</div>
+        <div class="stats">
+          <label>PAC <input id="pace" type="number" value="84" min="1" max="99" /></label>
+          <label>SHO <input id="shooting" type="number" value="77" min="1" max="99" /></label>
+          <label>PAS <input id="passing" type="number" value="82" min="1" max="99" /></label>
+          <label>DRI <input id="dribbling" type="number" value="86" min="1" max="99" /></label>
+          <label>DEF <input id="defending" type="number" value="46" min="1" max="99" /></label>
+          <label>PHY <input id="physical" type="number" value="65" min="1" max="99" /></label>
+        </div>
+
+        <div id="photoBox" class="photo-box hidden">
+          <div class="section-title">Poză user / jucător</div>
+          <label class="upload">
+            <strong>Încarcă poză</strong>
+            <span>JPG / PNG / WEBP</span>
+            <input id="photo" type="file" accept="image/*" />
+          </label>
+          <div id="photoPreview" class="photo-preview hidden"></div>
+        </div>
+
+        <div class="section-title">Instrucțiuni extra</div>
+        <textarea id="extraNotes" rows="4">Păstrează layout-ul de referință, emblemă și steag foarte pixelate, fundal în culorile echipei.</textarea>
+
+        <div class="actions">
+          <button type="button" id="btnPrompt" class="secondary">Vezi prompt</button>
+          <button type="submit" id="btnGenerate">Generează card</button>
+        </div>
+
+        <p class="hint">
+          Dacă vezi mock mode, setează în Netlify Environment Variables: <strong>OPENAI_API_KEY</strong>.
+        </p>
+      </form>
+    </section>
+
+    <section class="panel preview">
+      <div class="preview-head">
+        <div><span class="dot"></span> Rezultat</div>
+        <a id="downloadLink" class="download hidden" download="football-card.png">Descarcă imaginea</a>
+      </div>
+
+      <div id="resultBox" class="result-box">
+        <div class="empty">
+          <h2>Cardul generat va apărea aici</h2>
+          <p>Completează numele jucătorului și echipa, apoi apasă „Generează card”.</p>
+        </div>
+      </div>
+
+      <div class="prompt-panel">
+        <div class="prompt-title">Prompt generat</div>
+        <pre id="promptOutput"></pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

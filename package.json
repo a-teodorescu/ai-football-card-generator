@@ -1,15 +1,17 @@
 {
-  "name": "ai-football-card-generator-mvp",
-  "version": "1.0.0",
+  "name": "ai-football-card-generator-netlify-fixed-root",
+  "version": "1.0.1",
+  "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "build": "echo 'No build required'",
+    "dev": "netlify dev"
   },
   "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^4.19.2",
-    "multer": "^1.4.5-lts.1",
+    "@netlify/functions": "^2.8.2",
     "openai": "^4.77.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.38.1"
   }
 }
